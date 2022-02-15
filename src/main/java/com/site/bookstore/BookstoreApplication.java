@@ -33,6 +33,8 @@ public class BookstoreApplication implements CommandLineRunner {
 	@Override
 	public void run(String... args) throws Exception {
 		
+		
+		/*
 		Autor a1 = new Autor(null, "George", "R.R. Martin");
 		Autor a2 = new Autor(null, "Tom", "Clancy");
 		
@@ -58,6 +60,8 @@ public class BookstoreApplication implements CommandLineRunner {
 		
 		livroRepository.save(l1);
 		livroRepository.save(l2);
+		*/
+		
 	}
 
 }
