@@ -1,55 +1,88 @@
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
+import AutorService from "../../services/AutorService";
+import EditoraService from "../../services/EditoraService";
 import LivroService from "../../services/LivroService";
 
 export default function Create() {
   const [nome, setNome] = useState("");
   const [isbn, setIsbn] = useState("");
   const [preco, setPreco] = useState("");
-  const [id_autor, setId_autor] = useState("");
-  const [id_editora, setId_editora] = useState("");
-
+  const [autor, setAutor] = useState({ id_autor: "" });
+  const [editora, setEditora] = useState({ id: "" });
+  const [autores, setAutores] = useState([]);
+  const [editoras, setEditoras] = useState([]);
   const { id } = useParams();
   const navigate = useNavigate();
+
+  const getAllEditoras = () => {
+    EditoraService.getAllEditoras()
+      .then((response) => {
+        setEditoras(response.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  useEffect(() => {
+    getAllEditoras();
+  }, []);
+
+  const getAllAutores = () => {
+    AutorService.getAllAutores()
+      .then((response) => {
+        setAutores(response.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  useEffect(() => {
+    getAllAutores();
+  }, []);
 
   const criarOuEditarAutor = (e) => {
     e.preventDefault();
 
-    const livro = { nome, isbn, preco, id_autor, id_editora};
+    const livro = { nome, isbn, preco, autor, editora };
 
     if (id) {
-        LivroService.updateLivro(id, livro)
-        .then((response) => {
-            navigate("/Livros")
-        })
-
+      LivroService.updateLivro(id, livro).then((response) => {
+        navigate("/Livros");
+      });
     } else {
-        LivroService.createLivro(livro)
-        .then((response) => {
-            navigate("/Livros")
-        })
+      LivroService.createLivro(livro).then((response) => {
+        navigate("/Livros");
+      });
     }
-  }
+  };
 
   useEffect(() => {
-      function getLivroById() {
-        if (id) {
-            LivroService.getLivroById(id)
-            .then((response) => {
-                setNome(response.data.nome);
-                setIsbn(response.data.isbn);
-                setPreco(response.data.preco);
-                setId_autor(response.data.autor.id_autor);
-                setId_editora(response.data.editora.id_editora);
-            })
-            .catch((error) => {
-                console.log(error);
-            })
-        }
+    function getLivroById() {
+      if (id) {
+        LivroService.getLivroById(id)
+          .then((response) => {
+            setNome(response.data.nome);
+            setIsbn(response.data.isbn);
+            setPreco(response.data.preco);
+            setAutor({
+              id_autor: response.data.autor.id_autor,
+              nome: response.data.autor.nome,
+            });
+            setEditora({
+              id: response.data.editora.id,
+              nome: response.data.editora.nome,
+            });
+          })
+          .catch((error) => {
+            console.log(error);
+          });
       }
+    }
 
-      getLivroById()
-
+    getLivroById();
   }, [id]);
 
   return (
@@ -59,7 +92,7 @@ export default function Create() {
           <legend>
             <h2 className="text-center">{id ? "Editar" : "Criar"}</h2>
           </legend>
-          <div className="mb-3">
+          <div className="form-group mb-3">
             <label htmlFor="Nome" className="form-label">
               Nome
             </label>
@@ -73,64 +106,84 @@ export default function Create() {
             />
           </div>
 
-          <div className="mb-3">
-            <label htmlFor="Sobrenome" className="form-label">
-              Sobrenome
+          <div className="form-group mb-3">
+            <label htmlFor="Isbn" className="form-label">
+              Isbn
             </label>
             <input
               type="text"
-              id="Sobrenome"
+              id="Isbn"
               className="form-control"
-              placeholder="Sobrenome"
+              placeholder="Isbn"
               value={isbn}
               onChange={(e) => setIsbn(e.target.value)}
             />
           </div>
 
-          <div className="mb-3">
-            <label htmlFor="Sobrenome" className="form-label">
-              Sobrenome
+          <div className="form-group mb-3">
+            <label htmlFor="Preco" className="form-label">
+              Preço
             </label>
             <input
               type="text"
-              id="Sobrenome"
+              id="Preco"
               className="form-control"
-              placeholder="Sobrenome"
+              placeholder="Preco"
               value={preco}
               onChange={(e) => setPreco(e.target.value)}
             />
           </div>
 
-          <div className="mb-3">
-            <label htmlFor="Sobrenome" className="form-label">
-              Sobrenome
+          <div className="form-group mb-3">
+            <label htmlFor="AutorId_autor" className="form-label">
+              Autor
             </label>
-            <input
-              type="text"
-              id="Sobrenome"
-              className="form-control"
-              placeholder="Sobrenome"
-              value={id_autor}
-              onChange={(e) => setId_autor(e.target.value)}
-            />
+            <select
+              id="AutorId_autor"
+              name="AutorId_autor"
+              className="form-select"
+              onChange={(e) =>
+                setAutor({ id_autor: Number.parseInt(e.target.value) })
+              }
+              value={id ? autor.id_autor : 'DEFAULT'}
+            >
+              <option value="DEFAULT" disabled>Escolha um autor</option>
+              {autores.map((autor) => (
+                <option key={autor.id_autor} value={autor.id_autor}>
+                  {autor.nome} {autor.sobrenome}
+                </option>
+              ))}
+            </select>
           </div>
 
-          <div className="mb-3">
-            <label htmlFor="Sobrenome" className="form-label">
-              Sobrenome
+          <div className="form-group mb-3">
+            <label htmlFor="Editora" className="form-label">
+              Editora
             </label>
-            <input
-              type="text"
-              id="Sobrenome"
-              className="form-control"
-              placeholder="Sobrenome"
-              value={id_editora}
-              onChange={(e) => setId_editora(e.target.value)}
-            />
+            <select
+              id="Editora"
+              name="Editora"
+              className="form-select"
+              onChange={(e) =>
+                setEditora({ id: Number.parseInt(e.target.value) })
+              }
+              value={id ? editora.id : 'DEFAULT'}
+            >
+              <option value="DEFAULT" disabled>Escolha uma editora</option>
+              {editoras.map((editora) => (
+                <option key={editora.id} value={editora.id}>
+                  {editora.nome}
+                </option>
+              ))}
+            </select>
           </div>
 
-          <button type="submit" className="btn btn-primary" onClick={(e) => criarOuEditarAutor(e)}>
-            Submit
+          <button
+            type="submit"
+            className="btn btn-primary"
+            onClick={(e) => criarOuEditarAutor(e)}
+          >
+            Enviar
           </button>
           <Link
             to="/Livros"

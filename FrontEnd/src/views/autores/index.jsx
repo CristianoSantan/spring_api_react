@@ -9,7 +9,6 @@ export default function Index() {
     AutorService.getAllAutores()
       .then((response) => {
         setAutores(response.data);
-        console.log(response.data);
       })
       .catch((error) => {
         console.log(error);

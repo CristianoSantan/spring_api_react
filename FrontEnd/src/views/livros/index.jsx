@@ -9,14 +9,9 @@ export default function Index() {
     LivroService.getAllLivros()
       .then((response) => {
         setLivros(response.data);
-        console.log(response.data);
       })
       .catch((error) => {
         console.log(error);
-        const { data } = error.response;
-        if (data.status === 500 ) {
-          alert("Erro na API")
-        };
       });
   };
 
@@ -36,7 +31,9 @@ export default function Index() {
 
   return (
     <div className="container py-3">
-      <Link to="/Livros-Create">Criar Autor</Link>
+      <Link to="/Livros-Create" className="btn btn-primary mb-2">
+        Criar Autor
+      </Link>
       <table className="table">
         <thead>
           <tr>
@@ -56,7 +53,9 @@ export default function Index() {
               <td>{livro.nome}</td>
               <td>{livro.isbn}</td>
               <td>{livro.preco}</td>
-              <td>{livro.autor.nome} {livro.autor.sobrenome}</td>
+              <td>
+                {livro.autor.nome} {livro.autor.sobrenome}
+              </td>
               <td>{livro.editora.nome}</td>
               <td>
                 <Link

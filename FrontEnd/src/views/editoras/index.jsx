@@ -9,7 +9,6 @@ export default function Index() {
     EditoraService.getAllEditoras()
       .then((response) => {
         setEditoras(response.data);
-        console.log(response.data);
       })
       .catch((error) => {
         console.log(error);
@@ -28,15 +27,17 @@ export default function Index() {
       .catch((error) => {
         console.log(error);
         const { data } = error.response;
-        if (data.status === 500 ) {
-          alert("Erro na API")
-        };
+        if (data.status === 500) {
+          alert("Erro na API");
+        }
       });
   };
 
   return (
     <div className="container py-3">
-      <Link to="/Editoras-Create">Criar Autor</Link>
+      <Link to="/Editoras-Create" className="btn btn-primary mb-2">
+        Criar Autor
+      </Link>
       <table className="table">
         <thead>
           <tr>

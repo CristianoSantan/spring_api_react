@@ -8,8 +8,6 @@ export default function Create() {
   const { id } = useParams();
   const navigate = useNavigate();
 
-  console.log(nome);
-
   const criarOuEditarAutor = (e) => {
     e.preventDefault();
 
@@ -42,9 +40,7 @@ export default function Create() {
             })
         }
       }
-
       getAutorById()
-
   }, [id]);
 
   return (
@@ -83,7 +79,7 @@ export default function Create() {
           </div>
 
           <button type="submit" className="btn btn-primary" onClick={(e) => criarOuEditarAutor(e)}>
-            Submit
+            Enviar
           </button>
           <Link
             to="/Autores"

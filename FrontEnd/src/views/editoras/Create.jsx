@@ -13,34 +13,30 @@ export default function Create() {
     const editora = { nome };
 
     if (id) {
-        EditoraService.updateEditora(id, editora)
-        .then((response) => {
-            navigate("/Editoras")
-        })
-
+      EditoraService.updateEditora(id, editora).then((response) => {
+        navigate("/Editoras");
+      });
     } else {
-        EditoraService.createEditora(editora)
-        .then((response) => {
-            navigate("/Editoras")
-        })
+      EditoraService.createEditora(editora).then((response) => {
+        navigate("/Editoras");
+      });
     }
-  }
+  };
 
   useEffect(() => {
-      function getEditoraById() {
-        if (id) {
-            EditoraService.getEditoraById(id)
-            .then((response) => {
-                setNome(response.data.nome);
-            })
-            .catch((error) => {
-                console.log(error);
-            })
-        }
+    function getEditoraById() {
+      if (id) {
+        EditoraService.getEditoraById(id)
+          .then((response) => {
+            setNome(response.data.nome);
+          })
+          .catch((error) => {
+            console.log(error);
+          });
       }
+    }
 
-      getEditoraById()
-
+    getEditoraById();
   }, [id]);
 
   return (
@@ -64,8 +60,12 @@ export default function Create() {
             />
           </div>
 
-          <button type="submit" className="btn btn-primary" onClick={(e) => criarOuEditarAutor(e)}>
-            Submit
+          <button
+            type="submit"
+            className="btn btn-primary"
+            onClick={(e) => criarOuEditarAutor(e)}
+          >
+            Enviar
           </button>
           <Link
             to="/Editoras"
