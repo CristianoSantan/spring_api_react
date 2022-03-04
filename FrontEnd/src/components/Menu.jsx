@@ -3,13 +3,13 @@ import { Link } from "react-router-dom";
 
 export default function Menu() {
   return (
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-      <div class="container-fluid">
-        <Link class="nav-link" to="/">
-                home
+    <nav className="navbar navbar-expand-lg navbar-light bg-light">
+      <div className="container">
+        <Link className="nav-link" to="/">
+                Bookstore
         </Link>
         <button
-          class="navbar-toggler"
+          className="navbar-toggler"
           type="button"
           data-bs-toggle="collapse"
           data-bs-target="#navbarNav"
@@ -17,18 +17,23 @@ export default function Menu() {
           aria-expanded="false"
           aria-label="Toggle navigation"
         >
-          <span class="navbar-toggler-icon"></span>
+          <span className="navbar-toggler-icon"></span>
         </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-          <ul class="navbar-nav">
-            <li class="nav-item">
-              <Link class="nav-link" to="/">
-                home
+        <div className="collapse navbar-collapse" id="navbarNav">
+          <ul className="navbar-nav">
+            <li className="nav-item">
+              <Link to="/Autores" className="nav-link">
+                Autores
               </Link>
             </li>
-            <li class="nav-item">
-              <Link to="/Autores" class="nav-link">
-                Autores
+            <li className="nav-item">
+              <Link to="/Editoras" className="nav-link">
+                Editoras
+              </Link>
+            </li>
+            <li className="nav-item">
+              <Link to="/Livros" className="nav-link">
+                Livros
               </Link>
             </li>
           </ul>

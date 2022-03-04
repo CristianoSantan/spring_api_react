@@ -1,29 +1,15 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import AutorService from "../../services/AutorService";
+import LivroService from "../../services/LivroService";
 
 export default function Index() {
-  const [autores, setAutores] = useState([]);
+  const [livros, setLivros] = useState([]);
 
-  const getAllAutores = () => {
-    AutorService.getAllAutores()
+  const getAllLivros = () => {
+    LivroService.getAllLivros()
       .then((response) => {
-        setAutores(response.data);
+        setLivros(response.data);
         console.log(response.data);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  };
-
-  useEffect(() => {
-    getAllAutores();
-  }, []);
-
-  const deleteAutor = (autorId) => {
-    AutorService.deleteAutor(autorId)
-      .then((response) => {
-        getAllAutores();
       })
       .catch((error) => {
         console.log(error);
@@ -34,34 +20,54 @@ export default function Index() {
       });
   };
 
+  useEffect(() => {
+    getAllLivros();
+  }, []);
+
+  const deleteLivro = (livroId) => {
+    LivroService.deleteLivro(livroId)
+      .then((response) => {
+        getAllLivros();
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
   return (
     <div className="container py-3">
-      <Link to="/Autores-Create" className="btn btn-primary mb-2">Criar Autor</Link>
+      <Link to="/Livros-Create">Criar Autor</Link>
       <table className="table">
         <thead>
           <tr>
             <th>Id</th>
             <th>Nome</th>
-            <th>Sobrenome</th>
+            <th>Isbn</th>
+            <th>Preço</th>
+            <th>Autor</th>
+            <th>Editora</th>
             <th>Ações</th>
           </tr>
         </thead>
         <tbody>
-          {autores.map((autor) => (
-            <tr key={autor.id_autor}>
-              <td>{autor.id_autor}</td>
-              <td>{autor.nome}</td>
-              <td>{autor.sobrenome}</td>
+          {livros.map((livro) => (
+            <tr key={livro.id}>
+              <td>{livro.id}</td>
+              <td>{livro.nome}</td>
+              <td>{livro.isbn}</td>
+              <td>{livro.preco}</td>
+              <td>{livro.autor.nome} {livro.autor.sobrenome}</td>
+              <td>{livro.editora.nome}</td>
               <td>
                 <Link
-                  to={`/Autores-Update/${autor.id_autor}`}
+                  to={`/Livros-Update/${livro.id}`}
                   className="btn btn-info"
                 >
                   Editar
                 </Link>
                 <button
                   className="btn btn-danger"
-                  onClick={() => deleteAutor(autor.id_autor)}
+                  onClick={() => deleteLivro(livro.id)}
                   style={{ marginLeft: "10px" }}
                 >
                   Deletar

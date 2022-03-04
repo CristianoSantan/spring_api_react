@@ -1,41 +1,37 @@
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import AutorService from "../../services/AutorService";
+import EditoraService from "../../services/EditoraService";
 
 export default function Create() {
   const [nome, setNome] = useState("");
-  const [sobrenome, setSobrenome] = useState("");
   const { id } = useParams();
   const navigate = useNavigate();
-
-  console.log(nome);
 
   const criarOuEditarAutor = (e) => {
     e.preventDefault();
 
-    const autor = { nome, sobrenome};
+    const editora = { nome };
 
     if (id) {
-        AutorService.updateAutor(id, autor)
+        EditoraService.updateEditora(id, editora)
         .then((response) => {
-            navigate("/Autores")
+            navigate("/Editoras")
         })
 
     } else {
-        AutorService.createAutor(autor)
+        EditoraService.createEditora(editora)
         .then((response) => {
-            navigate("/Autores")
+            navigate("/Editoras")
         })
     }
   }
 
   useEffect(() => {
-      function getAutorById() {
+      function getEditoraById() {
         if (id) {
-            AutorService.getAutorById(id)
+            EditoraService.getEditoraById(id)
             .then((response) => {
                 setNome(response.data.nome);
-                setSobrenome(response.data.sobrenome);
             })
             .catch((error) => {
                 console.log(error);
@@ -43,7 +39,7 @@ export default function Create() {
         }
       }
 
-      getAutorById()
+      getEditoraById()
 
   }, [id]);
 
@@ -68,25 +64,11 @@ export default function Create() {
             />
           </div>
 
-          <div className="mb-3">
-            <label htmlFor="Sobrenome" className="form-label">
-              Sobrenome
-            </label>
-            <input
-              type="text"
-              id="Sobrenome"
-              className="form-control"
-              placeholder="Sobrenome"
-              value={sobrenome}
-              onChange={(e) => setSobrenome(e.target.value)}
-            />
-          </div>
-
           <button type="submit" className="btn btn-primary" onClick={(e) => criarOuEditarAutor(e)}>
             Submit
           </button>
           <Link
-            to="/Autores"
+            to="/Editoras"
             className="btn btn-danger"
             style={{ marginLeft: "10px" }}
           >

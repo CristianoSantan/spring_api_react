@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import AutorService from "../../services/AutorService";
+import EditoraService from "../../services/EditoraService";
 
 export default function Index() {
-  const [autores, setAutores] = useState([]);
+  const [editoras, setEditoras] = useState([]);
 
-  const getAllAutores = () => {
-    AutorService.getAllAutores()
+  const getAllEditoras = () => {
+    EditoraService.getAllEditoras()
       .then((response) => {
-        setAutores(response.data);
+        setEditoras(response.data);
         console.log(response.data);
       })
       .catch((error) => {
@@ -17,13 +17,13 @@ export default function Index() {
   };
 
   useEffect(() => {
-    getAllAutores();
+    getAllEditoras();
   }, []);
 
-  const deleteAutor = (autorId) => {
-    AutorService.deleteAutor(autorId)
+  const deleteEditora = (editoraId) => {
+    EditoraService.deleteEditora(editoraId)
       .then((response) => {
-        getAllAutores();
+        getAllEditoras();
       })
       .catch((error) => {
         console.log(error);
@@ -36,32 +36,30 @@ export default function Index() {
 
   return (
     <div className="container py-3">
-      <Link to="/Autores-Create" className="btn btn-primary mb-2">Criar Autor</Link>
+      <Link to="/Editoras-Create">Criar Autor</Link>
       <table className="table">
         <thead>
           <tr>
             <th>Id</th>
             <th>Nome</th>
-            <th>Sobrenome</th>
             <th>Ações</th>
           </tr>
         </thead>
         <tbody>
-          {autores.map((autor) => (
-            <tr key={autor.id_autor}>
-              <td>{autor.id_autor}</td>
-              <td>{autor.nome}</td>
-              <td>{autor.sobrenome}</td>
+          {editoras.map((editora) => (
+            <tr key={editora.id}>
+              <td>{editora.id}</td>
+              <td>{editora.nome}</td>
               <td>
                 <Link
-                  to={`/Autores-Update/${autor.id_autor}`}
+                  to={`/Editoras-Update/${editora.id}`}
                   className="btn btn-info"
                 >
                   Editar
                 </Link>
                 <button
                   className="btn btn-danger"
-                  onClick={() => deleteAutor(autor.id_autor)}
+                  onClick={() => deleteEditora(editora.id)}
                   style={{ marginLeft: "10px" }}
                 >
                   Deletar

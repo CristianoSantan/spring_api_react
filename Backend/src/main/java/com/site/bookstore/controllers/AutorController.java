@@ -25,6 +25,7 @@ public class AutorController {
 	
 	@Autowired
 	private AutorRepository autorRepository;
+	
 	// GET
 	@GetMapping
 	public ResponseEntity<List<Autor>> findAll() {
@@ -33,6 +34,7 @@ public class AutorController {
 		
 		return ResponseEntity.ok().body(autores);
 	}
+	
 	// GET por id
 	@GetMapping(value = "/{id}")
 	public ResponseEntity<Autor> findById(@PathVariable Long id) {
