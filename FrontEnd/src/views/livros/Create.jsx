@@ -8,8 +8,8 @@ export default function Create() {
   const [nome, setNome] = useState("");
   const [isbn, setIsbn] = useState("");
   const [preco, setPreco] = useState("");
-  const [autor, setAutor] = useState({ id_autor: "" });
-  const [editora, setEditora] = useState({ id: "" });
+  const [autor, setAutor] = useState({ id_autor: "", nome: ""});
+  const [editora, setEditora] = useState({ id: "", nome: "" });
   const [autores, setAutores] = useState([]);
   const [editoras, setEditoras] = useState([]);
   const { id } = useParams();
@@ -145,9 +145,8 @@ export default function Create() {
               onChange={(e) =>
                 setAutor({ id_autor: Number.parseInt(e.target.value) })
               }
-              value={id ? autor.id_autor : 'DEFAULT'}
             >
-              <option value="DEFAULT" disabled>Escolha um autor</option>
+              <option value="DEFAULT" >{id ? autor.nome : 'Escolha um autor'}</option>
               {autores.map((autor) => (
                 <option key={autor.id_autor} value={autor.id_autor}>
                   {autor.nome} {autor.sobrenome}
@@ -167,9 +166,8 @@ export default function Create() {
               onChange={(e) =>
                 setEditora({ id: Number.parseInt(e.target.value) })
               }
-              value={id ? editora.id : 'DEFAULT'}
             >
-              <option value="DEFAULT" disabled>Escolha uma editora</option>
+              <option value="DEFAULT" >{id ? editora.nome : 'Escolha um editora'}</option>
               {editoras.map((editora) => (
                 <option key={editora.id} value={editora.id}>
                   {editora.nome}

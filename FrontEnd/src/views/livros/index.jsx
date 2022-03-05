@@ -32,7 +32,7 @@ export default function Index() {
   return (
     <div className="container py-3">
       <Link to="/Livros-Create" className="btn btn-primary mb-2">
-        Criar Autor
+        Criar Livro
       </Link>
       <table className="table">
         <thead>
