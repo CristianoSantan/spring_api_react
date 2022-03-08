@@ -1,7 +1,6 @@
 import axios from "axios";
 
-// const AUTOR_API_URL = "https://bookapi-spring.herokuapp.com/autores";
-const AUTOR_API_URL = "https://springpostgre.herokuapp.com/autores";
+const AUTOR_API_URL = "https://book-back-end.herokuapp.com/autores";
 
 class AutorService {
   getAllAutores() {
