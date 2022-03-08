@@ -34,42 +34,49 @@ export default function Index() {
   };
 
   return (
-    <div className="container py-3">
-      <Link to="/Editoras-Create" className="btn btn-primary mb-2">
-        Criar Editora
-      </Link>
-      <table className="table">
-        <thead>
-          <tr>
-            <th>Id</th>
-            <th>Nome</th>
-            <th>Ações</th>
-          </tr>
-        </thead>
-        <tbody>
-          {editoras.map((editora) => (
-            <tr key={editora.id}>
-              <td>{editora.id}</td>
-              <td>{editora.nome}</td>
-              <td>
-                <Link
-                  to={`/Editoras-Update/${editora.id}`}
-                  className="btn btn-info"
-                >
-                  Editar
-                </Link>
-                <button
-                  className="btn btn-danger"
-                  onClick={() => deleteEditora(editora.id)}
-                  style={{ marginLeft: "10px" }}
-                >
-                  Deletar
-                </button>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    </div>
+    <>
+      <header className="header">
+        <h1 className="container">Cadastro Editora</h1>
+      </header>
+      <div className="container py-3">
+        <Link to="/Editoras-Create" className="btn btn-primary mb-2">
+          Criar Editora
+        </Link>
+        <div className="table-responsive">
+          <table className="table">
+            <thead>
+              <tr>
+                <th>Id</th>
+                <th>Nome</th>
+                <th>Ações</th>
+              </tr>
+            </thead>
+            <tbody>
+              {editoras.map((editora) => (
+                <tr key={editora.id}>
+                  <td>{editora.id}</td>
+                  <td>{editora.nome}</td>
+                  <td className="d-flex">
+                    <Link
+                      to={`/Editoras-Update/${editora.id}`}
+                      className="btn btn-info"
+                    >
+                      Editar
+                    </Link>
+                    <button
+                      className="btn btn-danger"
+                      onClick={() => deleteEditora(editora.id)}
+                      style={{ marginLeft: "10px" }}
+                    >
+                      Deletar
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </>
   );
 }

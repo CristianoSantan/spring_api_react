@@ -1,6 +1,7 @@
 import axios from "axios";
 
-const EDITORA_API_URL = "https://bookapi-spring.herokuapp.com/editoras";
+// const EDITORA_API_URL = "https://bookapi-spring.herokuapp.com/editoras";
+const EDITORA_API_URL = "https://springpostgre.herokuapp.com/editoras";
 
 class EditoraService {
   getAllEditoras() {

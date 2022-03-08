@@ -3,10 +3,10 @@ import { Link } from "react-router-dom";
 
 export default function Menu() {
   return (
-    <nav className="navbar navbar-expand-lg navbar-light bg-light">
+    <nav className="navbar navbar-expand-md navbar-light bg-light">
       <div className="container">
-        <Link className="nav-link" to="/">
-                Bookstore
+        <Link className="navbar-brand" to="/">
+          Bookstore
         </Link>
         <button
           className="navbar-toggler"
@@ -22,17 +22,17 @@ export default function Menu() {
         <div className="collapse navbar-collapse" id="navbarNav">
           <ul className="navbar-nav">
             <li className="nav-item">
-              <Link to="/Autores" className="nav-link">
+              <Link to="/Autores" className="nav-link text-dark ">
                 Autores
               </Link>
             </li>
             <li className="nav-item">
-              <Link to="/Editoras" className="nav-link">
+              <Link to="/Editoras" className="nav-link text-dark">
                 Editoras
               </Link>
             </li>
             <li className="nav-item">
-              <Link to="/Livros" className="nav-link">
+              <Link to="/Livros" className="nav-link text-dark">
                 Livros
               </Link>
             </li>

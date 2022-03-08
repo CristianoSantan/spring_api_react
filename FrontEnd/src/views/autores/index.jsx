@@ -27,49 +27,58 @@ export default function Index() {
       .catch((error) => {
         console.log(error);
         const { data } = error.response;
-        if (data.status === 500 ) {
-          alert("Erro na API")
-        };
+        if (data.status === 500) {
+          alert("Erro na API");
+        }
       });
   };
 
   return (
-    <div className="container py-3">
-      <Link to="/Autores-Create" className="btn btn-primary mb-2">Criar Autor</Link>
-      <table className="table">
-        <thead>
-          <tr>
-            <th>Id</th>
-            <th>Nome</th>
-            <th>Sobrenome</th>
-            <th>Ações</th>
-          </tr>
-        </thead>
-        <tbody>
-          {autores.map((autor) => (
-            <tr key={autor.id_autor}>
-              <td>{autor.id_autor}</td>
-              <td>{autor.nome}</td>
-              <td>{autor.sobrenome}</td>
-              <td>
-                <Link
-                  to={`/Autores-Update/${autor.id_autor}`}
-                  className="btn btn-info"
-                >
-                  Editar
-                </Link>
-                <button
-                  className="btn btn-danger"
-                  onClick={() => deleteAutor(autor.id_autor)}
-                  style={{ marginLeft: "10px" }}
-                >
-                  Deletar
-                </button>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    </div>
+    <>
+      <header className="header">
+        <h1 className="container">Cadastro Autor</h1>
+      </header>
+      <div className="container p-5">
+        <Link to="/Autores-Create" className="btn btn-primary mb-2">
+          Criar Autor
+        </Link>
+        <div className="table-responsive">
+          <table className="table table-hover table-sm">
+            <thead>
+              <tr>
+                <th>Id</th>
+                <th>Nome</th>
+                <th>Sobrenome</th>
+                <th>Ações</th>
+              </tr>
+            </thead>
+            <tbody>
+              {autores.map((autor) => (
+                <tr key={autor.id_autor}>
+                  <td>{autor.id_autor}</td>
+                  <td>{autor.nome}</td>
+                  <td>{autor.sobrenome}</td>
+                  <td className="d-flex">
+                    <Link
+                      to={`/Autores-Update/${autor.id_autor}`}
+                      className="btn btn-info"
+                    >
+                      Editar
+                    </Link>
+                    <button
+                      className="btn btn-danger"
+                      onClick={() => deleteAutor(autor.id_autor)}
+                      style={{ marginLeft: "10px" }}
+                    >
+                      Deletar
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </>
   );
 }

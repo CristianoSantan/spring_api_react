@@ -1,10 +1,11 @@
 import React from "react";
 
 export default function Home() {
-    
-    return (
-        <>
-            <h2>Olá Dev!</h2>
-        </>
-    );
+  return (
+    <>
+      <header className="header">
+        <h1 className="container">Olá Dev!!</h1>
+      </header>
+    </>
+  );
 }

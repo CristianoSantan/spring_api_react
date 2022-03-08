@@ -7,7 +7,7 @@ import LivroService from "../../services/LivroService";
 export default function Create() {
   const [nome, setNome] = useState("");
   const [isbn, setIsbn] = useState("");
-  const [preco, setPreco] = useState("");
+  const [preco, setPreco] = useState(0.0);
   const [autor, setAutor] = useState({ id_autor: "", nome: ""});
   const [editora, setEditora] = useState({ id: "", nome: "" });
   const [autores, setAutores] = useState([]);
@@ -47,7 +47,7 @@ export default function Create() {
     e.preventDefault();
 
     const livro = { nome, isbn, preco, autor, editora };
-
+    console.log(livro)
     if (id) {
       LivroService.updateLivro(id, livro).then((response) => {
         navigate("/Livros");
@@ -130,7 +130,7 @@ export default function Create() {
               className="form-control"
               placeholder="Preco"
               value={preco}
-              onChange={(e) => setPreco(e.target.value)}
+              onChange={(e) => setPreco(Number.parseFloat(e.target.value))}
             />
           </div>
 
